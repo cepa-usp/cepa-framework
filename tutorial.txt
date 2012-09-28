@@ -1,0 +1,78 @@
+1. Adicione a pasta cepa-framework no projeto
+2. Crie referência para todos os arquivos .swc da pasta cepa-framework/includes 
+3. Faça tb referência à biblioteca cepa-framework/libraries
+
+
+3. Criação básica da moldura e tudo mais:
+package 
+{
+	import cepa.ai.AI;
+	import cepa.ai.AIObserver;
+	import flash.display.Sprite;
+	import flash.events.Event;
+	
+
+	public class Main extends Sprite implements AIObserver
+	{
+		
+		public function Main():void 
+		{
+			if (stage) init();
+			else addEventListener(Event.ADDED_TO_STAGE, init);
+		}
+		
+
+		private function init(e:Event = null):void 
+		{
+			/**
+				Instancie um objeto AI e passe como parâmetro a classe Main. Com isso, a parte visual da Main já será inserida
+				no layer correto, colocando os botões e a moldura na frente do conteúdo.
+				
+				(essa classe implementa uma variação do padrão Decorator)
+			**/
+			var ai:AI = new AI(this);
+			/**
+				Remova ou adicione a barra de mensagens no rodapé da atividade
+			**/
+			ai.container.messageLabel.visible = false;
+			
+			/**
+				Escolha se deseja que as mensagens para debug sejam exibidas
+			**/
+			ai.debugMode = true;
+
+			/**
+			Insira novas telas
+			**/
+			ai.container.setAboutScreen(new AboutScreen());
+			ai.container.setInfoScreen(new InstructScreen());			
+			
+			/**
+				Crie um observer. Neste caso estou usando a própria classe Main, mas isso pode ser endereçado pra outra classe 
+				(ou outras, se quiser segmentar em pequenos blocos.
+			**/
+			ai.addObserver(this);
+			
+			
+			
+			
+			
+			/**
+				Inicie toda a lógica da sua atividade
+			**/
+			criarAtividade()
+			
+			/**
+				Conecta ao SCORM e outras coisas mais
+			**/
+			ai.initialize();			
+		}
+		
+	}
+	
+}
+
+
+
+	
+	
