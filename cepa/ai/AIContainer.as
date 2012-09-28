@@ -28,7 +28,7 @@ package cepa.ai
         ]);		
 		private var layerUI:Sprite = new Sprite();
 		private var ai:AI;
-		private var margin:int = 25;
+		private var margin:int = 12;
 		private var _optionButtons:MenuBotoes = new MenuBotoes()
 		private var _messageLabel:TextoExplicativo = new TextoExplicativo();
 		private var aboutScreen:Sprite;
