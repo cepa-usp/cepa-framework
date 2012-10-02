@@ -71,8 +71,8 @@ package cepa.ai
 			}
 		}		
 		
+		var b:Borda = new Borda();
 		public function adjustBorder():void {
-			var b:Borda = new Borda();			
 			b.scale9Grid = new Rectangle(20, 20, b.width - 40, b.height - 40);
 			b.width = this.stage.stageWidth;
 			b.height = this.stage.stageHeight;
@@ -95,6 +95,7 @@ package cepa.ai
 			optionButtons.btCreditos.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void {
 				openScreen(aboutScreen);
 			});
+			
 			
 			layerUI.addChild(aboutScreen);
 			layerUI.addChild(border);
@@ -147,7 +148,7 @@ package cepa.ai
 			
 			spriteScreen.scaleX = 0.01;
 			spriteScreen.scaleY = 0.01;
-			spriteScreen.alpha = 0;
+			spriteScreen.alpha = 0;			
 			spriteScreen.visible = true;
 			Actuate.tween(spriteScreen, 0.6, { alpha:1, scaleX:(stage.stageWidth/w), scaleY:(stage.stageHeight/h) } );
 		}
@@ -166,8 +167,8 @@ package cepa.ai
 			
 			// prepare option buttons
 			layerUI.addChild(optionButtons);
-			optionButtons.filters = [SHADOW_FILTER];
 			optionButtons.x = stage.stageWidth - margin - optionButtons.width;
+			optionButtons.filters = [SHADOW_FILTER];
 			optionButtons.y = stage.stageHeight - margin - optionButtons.height;			
 			makeButton(optionButtons.btTutorial);
 			makeButton(optionButtons.btStatistics);
@@ -231,6 +232,7 @@ package cepa.ai
 			this.messageLabel.y = this.scrollRect.height;
 			//Actuate.tween(messageLabel, 0.8, { y:(value?this.scrollRect.height:0) } ).onComplete();
 		}
+		
 		
 		public function setOptionsMenuVisible(value:Boolean):void {
 			Actuate.tween(optionButtons, 0.8, { alpha:(value?(this.height - messageLabel.height):this.height)});
