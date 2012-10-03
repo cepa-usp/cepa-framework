@@ -12,6 +12,7 @@ package cepa.multiagent.reasoning
 		function get description():String;
 		function get isDeterministic():Boolean;
 		function process(agt:Agent):void;
+		function cancel():void;
 
 	}
 	

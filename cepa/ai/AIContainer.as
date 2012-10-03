@@ -217,7 +217,9 @@ package cepa.ai
 			optionButtons.btStatistics.addEventListener(MouseEvent.CLICK, ai.onStatsClick);
 		}
 		
-		
+		public function removeButton(name:String) {
+			
+		}
 		
 		
 		public function setMessageTextValue(tx:String):void {

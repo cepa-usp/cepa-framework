@@ -41,6 +41,11 @@ package cepa.multiagent.agent
 			_uid = Util.nextID();
 		}
 		
+		public function removeReasoning(reas:IReasoning):void 
+		{
+			reasoning.splice(reasoning.indexOf(reas), 1);
+		}		
+		
 		public function get environment():Environment 
 		{
 			return _environment;
@@ -49,6 +54,7 @@ package cepa.multiagent.agent
 		public function set environment(value:Environment):void 
 		{
 			_environment = value;
+			if (value == null) return;
 			onEnvironmentChanged();
 		}
 		

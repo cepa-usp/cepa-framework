@@ -2,6 +2,7 @@ package  cepa.multiagent.environment
 {
 	import cepa.multiagent.agent.Agent;
 	import cepa.multiagent.agent.AgentEvent;
+	import cepa.multiagent.reasoning.IReasoning;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.geom.Point;
@@ -38,11 +39,27 @@ package  cepa.multiagent.environment
 				for (j= 0; j <= height; j++) {
 					var p:EnvrPosition = new EnvrPosition();
 					positions.push(p);
+					p.posX = i;
+					p.posY = j;
 					pos[i][j] = p;
 				}
 			}
 			
 		}
+		
+		public function removeAgent(a:Agent):void {
+			agents.splice(agents.indexOf(a), 1);
+			for each(var r:IReasoning in a.reasoning) {
+				r.cancel()
+			}
+			a.state = Agent.STATE_PAUSED;
+			EnvrPosition(pos[a.positionX][a.positionY]).removeAgent();			
+			//a.positionX = -1
+			//a.positionY = -1
+			
+			eventDispatcher.dispatchEvent(new AgentEvent(AgentEvent.AGENT_REMOVED, a));
+		}
+		
 		
 		public function registerAgent(a:Agent, xIni:int, yIni:int):void {
 			agents.push(a);			
@@ -55,19 +72,46 @@ package  cepa.multiagent.environment
 			
 		}
 		
-		public function checkPosition(x:int, y:int):Boolean {
+		public function unRegisterAgent(a:Agent):void {
+			agents.splice(agents.indexOf(a), 1);
+			a.environment = null;
+			
+		}
+				
+		
+		public function checkPosition(agt:Agent, x:int, y:int):Boolean {
 			if (x < 0 || x>=this.width) return true;
 			if (y <0 || y >= this.height) return true;			
 			var p:EnvrPosition = pos[x][y];
-			if (p.agentHere != null) return true;
+			if (p.agentHere != null) {
+				return true;
+			}
 			return false;
-
+		}
+		
+		
+		public function findNearestFreePosition(srcPoint:Point):Point {
+			var dmin:Number = 99999;
+			var pmin:Point = srcPoint.clone();
+			var lpt:Point = new Point(0, 0)
+			var d:Number = 0;
+			for each(var ep:EnvrPosition in positions) {
+				lpt.x = ep.posX; 
+				lpt.y = ep.posY;
+				d = Point.distance(srcPoint, lpt);
+				if (ep.agentHere==null && d<dmin) {
+					dmin = d;
+					pmin = new Point(ep.posX, ep.posY);
+				}
+			}
+			return pmin;
 		}
 		
 		private function onAgentMoveRequested(e:AgentEvent):void 
 		{
 			// TODO:verificar se o agente pode se mover pra posição que ele está querendo
-			var deny:Boolean = checkPosition(e.walkX, e.walkY);
+			if (e.agent.environment != this) return;
+			var deny:Boolean = checkPosition(e.agent, e.walkX, e.walkY);
 			if (!deny) {
 				eventDispatcher.dispatchEvent(new AgentEvent(AgentEvent.AGENT_MOVEMENT_ALLOWED, e.agent).setWalkPosition(e.walkX, e.walkY));	
 				
@@ -77,11 +121,7 @@ package  cepa.multiagent.environment
 			}
 		}
 		
-		public function unRegisterAgent(a:Agent):void {
-			//eventDispatcher.addEventListener(AgentEvent.MOVE_REQUEST, onAgentMoveRequested);
-			// tirar todos os listeners pro gc conseguir se livrar de agentes se necessario
-		}
-		
+
 		public function setAgentPosition(a:Agent,  px:int, py:int):void {
 			if(a.positionX>=0 && a.positionX<=this.width && a.positionY>=0 && a.positionY<=this.height){
 				var vv:EnvrPosition = pos[a.positionX][a.positionY]

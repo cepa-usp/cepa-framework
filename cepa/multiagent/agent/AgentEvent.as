@@ -18,6 +18,7 @@ package cepa.multiagent.agent
 		static public const MOVEMENT_STATE_CHANGED:String = "movementStateChanged";
 		static public const DIRECTION_CHANGED:String = "directionChanged";
 		static public const AGENT_VELOCITY_CHANGED:String = "agentVelocityChanged";
+		static public const AGENT_REMOVED:String = "agentRemoved"
 		
 		private var _agent:Agent;
 		private var _walkX:int = 0;
