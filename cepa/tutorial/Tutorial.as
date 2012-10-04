@@ -14,9 +14,13 @@ package cepa.tutorial
 	 */
 	public class Tutorial extends Sprite
 	{
+		public static const STATE_NONE:int = 0;
+		public static const STATE_RUNNING:int = 1;
+		
 		private var baloes:Vector.<CaixaTexto> = new Vector.<CaixaTexto>();
 		private var position:int = -1;
 		private var balaoatual:CaixaTexto = null;
+		private var _state:int = 0;
 		
 		
 		
@@ -37,6 +41,7 @@ package cepa.tutorial
 		
 		
 		public function iniciar(stage:Stage):void {			
+			this._state = STATE_RUNNING;
 			stage.addChild(this);						
 			position = -1;
 			dispatchEvent(new TutorialEvent(-1, TutorialEvent.INICIO_TUTORIAL, true));			
@@ -73,8 +78,15 @@ package cepa.tutorial
 			stage.removeEventListener(MouseEvent.CLICK, proximo);			
 			stage.removeChild(this);			
 			position = -1;
+			_state = STATE_NONE;
 			dispatchEvent(new TutorialEvent(-1, TutorialEvent.FIM_TUTORIAL, true));			
 		}
+		
+		public function get state():int 
+		{
+			return _state;
+		}
+
 		
 		
 		
