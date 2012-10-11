@@ -4,6 +4,7 @@
 	import cepa.scorm.ScormHandler;
 	import cepa.tutorial.CaixaTexto;
 	import cepa.tutorial.Tutorial;
+	import cepa.utils.LZW;
 	import com.adobe.serialization.json.JSON;
 	import flash.display.Sprite;
 	import flash.display.Stage;
@@ -30,6 +31,7 @@
 		private var _evaluator:IEvaluation;
 		private var _debugTutorial:Boolean = false;		
 		private var _debugScreen:AIDebug;
+		private var _compress:Boolean = true;
 		private var _data:Object = new Object();
 		private var _aiinstance:AIInstance = null;
 		
@@ -53,11 +55,12 @@
 				ai_data.general = ai_instance.getData();
 			}
 			
-			var str:String = "" // JSON.encode(ai_data);
+			var str:String = com.adobe.serialization.json.JSON.encode(ai_data);
 			debugScreen.msg("JSON criado");
 			debugScreen.msg("scorm.scormConnected==" + scorm.scormConnected.toString());
 			if (scorm.scormConnected) {
 				debugScreen.msg("Salvando no SCORM");
+				if (compress==true) str = LZW.compress(str);
 				scorm.cmi.suspend_data = str;
 				scorm.save();
 			} 
@@ -67,6 +70,8 @@
 			}
 			
 		}
+		
+
 		public function loadSuspendData():void {
 			var obj:Object;
 			var str:String;
@@ -74,18 +79,29 @@
 			debugScreen.msg("scorm.scormConnected=" + scorm.scormConnected);
 			
 			if (scorm.scormConnected) {
+				debugScreen.msg("Coletando suspend_data");
 				str = scorm.cmi.suspend_data;
+				if (compress == true) str = LZW.decompress(str);
+				debugScreen.msg("resposta:");
+				
 				debugScreen.msg(str);
-			} else {				
+			} else {	
+				var ext:Boolean = ExternalInterface.available;
+				if(ext){
 				str = ExternalInterface.call("getLocalStorageString");
 				debugScreen.msg("Recuperando suspend_data de localstorage");
+				} else {
+					debugScreen.msg("External interface não disponível");	
+				}
 			}		
 			
 			if (str == "") {
-				debugScreen.msg("localstorage vazio");
+				debugScreen.msg("dados vazios");
+			} else if (str == null)	{
+				debugScreen.msg("dados vazios (null)");
 			} else {			
 				debugScreen.msg("decodificando JSON");
-				obj = "" //JSON.decode(str);
+				obj = com.adobe.serialization.json.JSON.decode(str);
 				debugScreen.msg("ok");
 				try {
 					debugScreen.msg("Lendo dados gerais");
@@ -247,6 +263,16 @@
 		public function set ai_instance(value:AIInstance):void 
 		{
 			_aiinstance = value;
+		}
+		
+		public function get compress():Boolean 
+		{
+			return _compress;
+		}
+		
+		public function set compress(value:Boolean):void 
+		{
+			_compress = value;
 		}
 		
 		private var tx:String = "";

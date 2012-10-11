@@ -59,11 +59,12 @@ package cepa.eval
 				scoreSum += playInstances[j].getScore();
 			}
 			return scoreSum / cases;
+			trace("scoreSum=", scoreSum, cases)
 		};
 		
 
 		/**
-		 * Score mean considering all valid and invalid trials
+		 * Score mean considering only valid trials
 		 */
 		public function get scoreValidMean():Number {
 			var scoreSum:Number = 0;

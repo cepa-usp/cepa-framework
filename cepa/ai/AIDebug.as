@@ -36,6 +36,13 @@
 		private function onKeyDown(e:KeyboardEvent):void 
 		{
 		if (e.ctrlKey == true && e.shiftKey == true && e.keyCode == Keyboard.F4) {
+				show()
+				
+			}
+		}
+		
+		
+		public function show():void {
 				vis = (!vis);
 				if (vis) {
 					stagesprite.addChild(this);
@@ -44,13 +51,13 @@
 					
 				} else {
 					stagesprite.removeChild(this);
-				}
-				
-			}
+				}			
 		}
+		
 		public function msg(value:String) {
 			//txt.text += value + "\n"
 			txt.appendText((value + "\n"))
+			trace(value)
 		}
 		
 		

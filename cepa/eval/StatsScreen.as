@@ -50,7 +50,9 @@
 				ai.container.closeScreen(Sprite(ai.container.getChildByName("stats")));
 			});
 			stats.addEventListener(Event.CLOSE, function(e:Event) {
-				ai.container.removeChild(ai.container.getChildByName("stats"));
+				if(ai.container.getChildByName("stats")!=null){
+					ai.container.removeChild(ai.container.getChildByName("stats"));
+				}
 			});
 			ai.container.addChild(stats);
 			ai.container.openScreen(stats)
