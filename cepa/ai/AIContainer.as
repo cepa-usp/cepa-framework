@@ -150,6 +150,11 @@ package cepa.ai
 			spriteScreen.scaleY = 0.01;
 			spriteScreen.alpha = 0;			
 			spriteScreen.visible = true;
+			
+			//REMOVER ------------------------------
+			spriteScreen.parent.setChildIndex(spriteScreen, spriteScreen.parent.numChildren - 1);
+			// FIM REMOVER -------------------------
+			
 			Actuate.tween(spriteScreen, 0.6, { alpha:1, scaleX:(stage.stageWidth/w), scaleY:(stage.stageHeight/h) } );
 		}
 
