@@ -109,6 +109,7 @@ package cepa.eval
 		{
 			
 			var obj:Object = new Object();
+			obj.playmode = this.currentPlayMode;
 			obj.length = playInstances.length;
 			for (var i:int = 0; i < playInstances.length; i++) {
 				obj[String(i)] = playInstances[i].returnAsObject();
@@ -120,9 +121,10 @@ package cepa.eval
 		public function readData(obj:Object) 
 		{
 			this.playInstances = new Vector.<IPlayInstance>();
-			
+			if(obj.playmode!=null) currentPlayMode = obj.playmode;
 			try {
 				var len:int = obj.length;
+				
 				
 				ai.debugScreen.msg("carregou: " + len.toString());
 				for (var i:int = 0; i < len; i++) {
