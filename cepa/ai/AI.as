@@ -133,6 +133,7 @@
 			observers.push(obs);
 		}
 		public function initialize() {
+			debugScreen.msg("Initializing....")	
 			scorm.connect();		
 			if (scorm.scormConnected) {
 				debugScreen.msg("Scorm connected! Avisando " + observers.length + " observers")	

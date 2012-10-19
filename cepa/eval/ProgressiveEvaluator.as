@@ -21,6 +21,7 @@ package cepa.eval
 		private var _currentPlayMode:int = AIConstants.PLAYMODE_FREEPLAY;
 		private var _minimumScoreForAcceptance:Number = 0.75;
 		private var _minimumTrialsForParticipScore:int = 5;
+		private var _finishes:Boolean = true;
 
 
 		/**
@@ -182,7 +183,8 @@ package cepa.eval
 				 * fazer cmi.success_status = “passed”, sinalizando para o LMS que ele foi aprovado na AI. 
 				 * Caso contrário, fazer cm.success_status = “failed”. obs.: para o PASSING_SCORE de 75%, pode-se concluir que o usuário precisa obter uma média aritmética dos exercícios igual ou superior a 0,5 (50%), em modo de avaliação, para passar, considerando que ele tenha feito a quantidade mínima de exercícios requerida (cinco, nesta AI).
 				 */
-				if (scr >= minimumScoreForAcceptance) {
+				
+				if (scr >= minimumScoreForAcceptance && finishes) {
 					ai.scorm.cmi.success_status	= CmiConstants.SUCCESS_STATUS_PASSED;
 					ai.debugScreen.msg("score maior do que o mínimo, salvando cmi.success_status <= passed")
 				} else {
@@ -247,6 +249,16 @@ package cepa.eval
 		public function set currentPlayMode(value:int):void 
 		{
 			_currentPlayMode = value;
+		}
+		
+		public function get finishes():Boolean 
+		{
+			return _finishes;
+		}
+		
+		public function set finishes(value:Boolean):void 
+		{
+			_finishes = value;
 		}
 		
 	}
