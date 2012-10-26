@@ -42,7 +42,7 @@ package cepa.ai
 			//this.graphics.beginFill(0xFFFFFF);
 			//this.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 			stagesprite.addChild(this);
-			this.scrollRect = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);			
+			this.scrollRect = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
 			createUI();
 			setAboutScreen(new AboutScreenUI());
 			bindMenuButtons();
@@ -83,6 +83,13 @@ package cepa.ai
 		public function setAboutScreen(sprite:Sprite):void {
 			if(aboutScreen!=null) layerUI.removeChild(aboutScreen);
 			aboutScreen = sprite;
+			
+			var backgroundScreen:Sprite = new Sprite();
+			backgroundScreen.graphics.beginFill(0x000000, 0.4);
+			backgroundScreen.graphics.drawRect( -this.scrollRect.width / 2, -this.scrollRect.height / 2, this.scrollRect.width, this.scrollRect.height);
+			aboutScreen.addChild(backgroundScreen);
+			aboutScreen.setChildIndex(backgroundScreen, 0);
+			
 //			var bt:CloseButton = new CloseButton();
 			//aboutScreen.addChild(bt);
 			aboutScreen.x = stage.stageWidth/2;
@@ -107,6 +114,13 @@ package cepa.ai
 		public function setInfoScreen(sprite:Sprite):void {
 			if(infoScreen!=null) layerUI.removeChild(infoScreen);
 			infoScreen = sprite;
+			
+			var backgroundScreen:Sprite = new Sprite();
+			backgroundScreen.graphics.beginFill(0x000000, 0.4);
+			backgroundScreen.graphics.drawRect( -this.scrollRect.width / 2, -this.scrollRect.height / 2, this.scrollRect.width, this.scrollRect.height);
+			infoScreen.addChild(backgroundScreen);
+			infoScreen.setChildIndex(backgroundScreen, 0);
+			
 			var bt:CloseButton = new CloseButton();
 
 			bt.x = infoScreen.width - 30;
