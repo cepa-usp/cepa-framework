@@ -9,6 +9,8 @@ package cepa.eval
 	import com.adobe.serialization.json.JSON;
 	import com.adobe.serialization.json.JSONEncoder;
 	import com.pipwerks.SCORM;
+	import flash.display.DisplayObject;
+	import flash.events.MouseEvent;
 	
 	/**
 	 * ...
@@ -241,6 +243,31 @@ package cepa.eval
 		public function set minimumTrialsForParticipScore(value:int):void 
 		{
 			_minimumTrialsForParticipScore = value;
+		}
+		
+		private var feedback:FeedbackScreen = new FeedbackScreen();
+		public function askEvaluation(bt:DisplayObject, callback:Function):void {
+			
+			feedback.okButton.addEventListener(MouseEvent.CLICK, function():void {
+				ai.container.disableComponent(bt);
+				this.currentPlayMode = AIConstants.PLAYMODE_EVALUATE;
+				ProgressiveEvaluator(ai.evaluator)._currentPlayMode = AIConstants.PLAYMODE_EVALUATE;
+				closeFeedback();
+				callback.call();
+			});
+			feedback.cancelButton.addEventListener(MouseEvent.CLICK, function():void {
+				closeFeedback();
+				callback.call();
+			});
+			
+			ai.container.addChild(feedback);
+			ai.container.openScreen(feedback)			
+			
+			
+		}
+		
+		private function closeFeedback():void {
+			ai.container.closeScreen(feedback);
 		}
 		
 		public function get currentPlayMode():int 

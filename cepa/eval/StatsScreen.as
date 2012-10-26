@@ -21,15 +21,15 @@
 			stats.name = "stats";
 			
 			//REMOVER --------------------------------------
-			var bkg:Sprite = new Sprite();
-			bkg.graphics.beginFill(0x000000, 0.6);
-			bkg.graphics.drawRect(-700/2, -500/2, 700, 500);
-			stats.addChild(bkg);
-			stats.setChildIndex(bkg, 0);
+			//var bkg:Sprite = new Sprite();
+			//bkg.graphics.beginFill(0x000000, 0.6);
+			//bkg.graphics.drawRect(-700/2, -500/2, 700, 500);
+			//stats.addChild(bkg);
+			//stats.setChildIndex(bkg, 0);
 			
 		}
 		
-		public function bindButton(button:DisplayObject) {
+		public function bindButton(button:DisplayObject):void {
 			button.addEventListener(MouseEvent.CLICK, onButtonClick)
 		}
 		
