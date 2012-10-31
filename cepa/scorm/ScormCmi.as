@@ -1,6 +1,6 @@
 package cepa.scorm 
 {
-	import com.adobe.serialization.json.JSON;
+	//import com.adobe.serialization.json.JSON;
 	/**
 	 * ...
 	 * @author Arthur

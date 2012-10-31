@@ -5,6 +5,7 @@ package cepa.ai
 	import com.eclecticdesignstudio.motion.Actuate;
 	import com.pipwerks.SCORM;
 	import flash.display.DisplayObject;
+	import flash.display.SimpleButton;
 	import flash.display.SpreadMethod;
 	import flash.display.Sprite;
 	import flash.display.Stage;
@@ -117,6 +118,9 @@ package cepa.ai
 			if(infoScreen!=null) layerUI.removeChild(infoScreen);
 			infoScreen = sprite;
 			
+			infoScreen.x = stage.stageWidth / 2;
+			infoScreen.y = stage.stageHeight/ 2;
+			
 			//var backgroundScreen:Sprite = new Sprite();
 			//backgroundScreen.graphics.beginFill(0x000000, 0.4);
 			//backgroundScreen.graphics.drawRect( -this.scrollRect.width / 2, -this.scrollRect.height / 2, this.scrollRect.width, this.scrollRect.height);
@@ -127,7 +131,21 @@ package cepa.ai
 
 			bt.x = infoScreen.width - 30;
 			bt.y = 30;
-			infoScreen.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void{closeScreen(infoScreen)});	
+			//Caso a tela de instruções tenha o botão de fechar com o nome de closeButton, ele que receberá os cliques de fechamento.
+			var close:SimpleButton = SimpleButton(infoScreen.getChildByName("closeButton"));
+			if (close != null) {
+				close.addEventListener(MouseEvent.CLICK, 
+					function(e:MouseEvent):void { 
+						closeScreen(infoScreen);
+					}
+				);	
+			}else{
+				infoScreen.addEventListener(MouseEvent.CLICK, 
+					function(e:MouseEvent):void { 
+						closeScreen(infoScreen);
+					}
+				);	
+			}
 			optionButtons.btOrientacoes.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void {
 				openScreen(infoScreen);
 			});
@@ -179,8 +197,8 @@ package cepa.ai
 			var w:Number = spriteScreen.width;
 			var h:Number = spriteScreen.height;
 			
-			spriteScreen.x = stage.stageWidth/2;
-			spriteScreen.y =  stage.stageHeight / 2;
+			//spriteScreen.x = stage.stageWidth/2;
+			//spriteScreen.y =  stage.stageHeight / 2;
 
 			
 			spriteScreen.scaleX = 0.01;
@@ -193,7 +211,8 @@ package cepa.ai
 			
 			//addChild(glass)
 			spriteScreen.parent.setChildIndex(spriteScreen, spriteScreen.parent.numChildren - 1);			
-			addChild(border)
+			//addChild(border)
+			border.parent.setChildIndex(border, border.parent.numChildren - 1);
 			// FIM REMOVER -------------------------
 			
 			Actuate.tween(spriteScreen, 0.6, { alpha:1, scaleX:(1), scaleY:(1) } );
