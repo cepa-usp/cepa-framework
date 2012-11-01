@@ -24,7 +24,7 @@ package cepa.tutorial
 		public static const TOP:String = "top";
 		public static const LEFT:String = "left";
 		public static const RIGHT:String = "right";
-		public static const BOTTON:String = "botton";
+		public static const BOTTOM:String = "BOTTOM";
 		
 		public static const FIRST:String = "first";
 		public static const CENTER:String = "center";
@@ -45,8 +45,8 @@ package cepa.tutorial
 		private var actualPosition:Point = new Point();
 		
 		private var hasNext:Boolean = true;
-		private var nextButton:TutoNext;
-		private var closeButton:TutoClose;
+		private var nextButton:NextButton;
+		private var closeButton:CloseButtonTuto;
 		private var textArray:Array;
 		private var currentWidth:Number = 200;
 		private var minWidth:Number;
@@ -74,8 +74,8 @@ package cepa.tutorial
 			//texto.border = true;
 			addChild(texto);
 			
-			nextButton = new TutoNext();
-			closeButton = new TutoClose();
+			nextButton = new NextButton();
+			closeButton = new CloseButtonTuto();
 			nextButton.buttonMode = true;
 			closeButton.buttonMode = true;
 			addChild(nextButton);
@@ -100,10 +100,10 @@ package cepa.tutorial
 			//trace("clicou em: " + e.target.name);
 			if (e.target == nextButton) {
 				this.visible = false;
-				dispatchEvent(new BaseEvent(BaseEvent.NEXT_BALAO));
+				dispatchEvent(new TutorialEvent(-1, TutorialEvent.PROXIMO));
 			}else if (e.target == closeButton) {
 				this.visible = false;
-				dispatchEvent(new BaseEvent(BaseEvent.CLOSE_BALAO));
+				dispatchEvent(new Event(Event.CLOSE));
 			}else if (e.target.name == "block") {
 				Actuate.stop(background);
 				background.filters = [errorGlow];
@@ -215,7 +215,7 @@ package cepa.tutorial
 						this.y = y - background.height + marginText + widthArrow / 2;
 					}
 					break;
-				case BOTTON:
+				case BOTTOM:
 					this.y = y - background.height - distanceToObject;
 					if (alignForArrow == FIRST) {
 						this.x = x - marginText - widthArrow / 2;
@@ -304,7 +304,7 @@ package cepa.tutorial
 				background.graphics.lineTo(marginText + w, 2 * marginText + h);
 			}
 			
-			if (sideForArrow != BOTTON) background.graphics.lineTo(marginText, 2 * marginText + h);
+			if (sideForArrow != BOTTOM) background.graphics.lineTo(marginText, 2 * marginText + h);
 			else {
 				switch(alignForArrow) {
 					case FIRST:
@@ -375,7 +375,7 @@ package cepa.tutorial
 		
 		public function setSideAlign(side:String, align:String):void
 		{
-			if (side != TOP || side != LEFT || side != RIGHT || side != BOTTON || align != FIRST || align != CENTER || align != LAST) return;
+			if (side != TOP || side != LEFT || side != RIGHT || side != BOTTOM || align != FIRST || align != CENTER || align != LAST) return;
 			
 			this.sideForArrow = side;
 			this.alignForArrow = align;

@@ -11,6 +11,7 @@ package cepa.tutorial
 		static public const INICIO_TUTORIAL:String = "inicioTutorial";
 		static public const BALAO_ABRIU:String = "balaoAbriu";
 		static public const FIM_TUTORIAL:String = "fimTutorial";
+		static public const PROXIMO:String = "proximo";
 		private var _numBalao:int;
 		
 		public function TutorialEvent(numbalao:int, type:String, bubbles:Boolean=false, cancelable:Boolean=false) 

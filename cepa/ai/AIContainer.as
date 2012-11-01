@@ -149,6 +149,7 @@ package cepa.ai
 					}
 				);	
 			}
+			infoScreen.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void { closeScreen(infoScreen) } );				
 			optionButtons.btOrientacoes.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void {
 				openScreen(infoScreen);
 			});
