@@ -245,7 +245,7 @@ package cepa.eval
 			_minimumTrialsForParticipScore = value;
 		}
 		
-		private var feedback:FeedbackScreen = new FeedbackScreen();
+		private var _feedback:FeedbackScreen = new FeedbackScreen();
 		public function askEvaluation(bt:DisplayObject, callback:Function):void {
 			
 			feedback.okButton.addEventListener(MouseEvent.CLICK, function():void {
@@ -288,6 +288,11 @@ package cepa.eval
 		public function set finishes(value:Boolean):void 
 		{
 			_finishes = value;
+		}
+		
+		public function get feedback():FeedbackScreen 
+		{
+			return _feedback;
 		}
 		
 	}

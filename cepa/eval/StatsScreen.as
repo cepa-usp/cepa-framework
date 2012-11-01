@@ -12,7 +12,7 @@
 	public class StatsScreen extends MovieClip {
 		private var eval:ProgressiveEvaluator;
 		private var ai:AI;
-		private var stats:StatsScreenView = new StatsScreenView();
+		private var _stats:StatsScreenView = new StatsScreenView();
 		
 		
 		public function StatsScreen(eval:ProgressiveEvaluator, ai:AI) {
@@ -64,6 +64,11 @@
 			ai.container.addChild(stats);
 			ai.container.openScreen(stats)
 		}				
+		
+		public function get stats():StatsScreenView 
+		{
+			return _stats;
+		}
 	}
 	
 }
