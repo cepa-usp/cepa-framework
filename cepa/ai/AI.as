@@ -213,7 +213,11 @@
 		public function set debugTutorial(value:Boolean):void 
 		{
 			_debugTutorial = value;
-			this.container.addEventListener(MouseEvent.CLICK, createTutorialItem)
+			var s:Sprite = new Sprite();
+			s.graphics.beginFill(0xFF8000, 0.2);
+			s.graphics.drawRect(0, 0, this.container.stage.width, this.container.stage.height);
+			this.container.stage.addChild(s);
+			s.addEventListener(MouseEvent.CLICK, createTutorialItem)
 		}
 		
 		public function get evaluator():IEvaluation 
@@ -278,9 +282,10 @@
 		
 		private var tx:String = "";
 		private function createTutorialItem(e:MouseEvent):void 
-		{
-			trace("debug tutorial: on")
-			tx += ("t.adicionarBalao('texto', new Point(" + e.stageX.toString() + "," +  e.stageY.toString() + "), CaixaTexto.RIGHT, CaixaTexto.FIRST);\n")
+		{			
+			var s:String = ("t.adicionarBalao('texto', new Point(" + e.stageX.toString() + "," +  e.stageY.toString() + "), CaixaTexto.RIGHT, CaixaTexto.FIRST);\n");
+			trace(s)
+			tx += s;
 			System.setClipboard(tx);
 		}
 		
