@@ -14,7 +14,7 @@ package cepa.tutorial
 	 * ...
 	 * @author Alexandre
 	 */
-	public class CaixaTextoOLD extends Sprite
+	public class CaixaTexto extends Sprite
 	{
 		public static const TOP:int = 1;
 		public static const LEFT:int = 2;

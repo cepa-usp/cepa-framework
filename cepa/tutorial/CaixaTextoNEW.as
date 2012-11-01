@@ -1,4 +1,4 @@
-package
+package cepa.tutorial
 {
 	import com.eclecticdesignstudio.motion.Actuate;
 	import com.eclecticdesignstudio.motion.easing.Elastic;
@@ -19,7 +19,7 @@ package
 	 * ...
 	 * @author Alexandre
 	 */
-	public class CaixaTexto extends Sprite
+	public class CaixaTextoNew extends Sprite
 	{
 		public static const TOP:String = "top";
 		public static const LEFT:String = "left";
@@ -54,7 +54,7 @@ package
 		private var normalGlow:GlowFilter = new GlowFilter(0x000000, 0.5, 6, 6, 2, 2);
 		private var errorGlow:GlowFilter = new GlowFilter(0xFF0000, 1, 6, 6, 2, 2);
 		
-		public function CaixaTexto(roundCorner:Boolean = false)
+		public function CaixaTextoNew(roundCorner:Boolean = false)
 		{
 			this.visible = false;
 			this.roundCorner = roundCorner;
