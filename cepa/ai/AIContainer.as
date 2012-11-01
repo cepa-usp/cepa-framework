@@ -32,7 +32,7 @@ package cepa.ai
 		private var margin:int = 12;
 		//private var _optionButtons:MenuBotoes = new MenuBotoes();
 		private var _optionButtons:MenuBotoes2;
-		private var glass:GlassPane = new GlassPane();			
+		private var glass:GlassPane;			
 		private var _messageLabel:TextoExplicativo = new TextoExplicativo();
 		private var aboutScreen:Sprite;
 		private var border:Sprite = new Sprite();
@@ -47,6 +47,8 @@ package cepa.ai
 			//this.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 			stagesprite.addChild(this);
 			this.scrollRect = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
+			this.glass = new GlassPane(scrollRect.width, scrollRect.height, GlassPane.REGISTRATION_TOPLEFT)
+			glass.visible = false;
 			createUI();
 			setAboutScreen(new AboutScreenUI());
 			bindMenuButtons();
@@ -107,7 +109,7 @@ package cepa.ai
 				openScreen(aboutScreen);
 			});
 			
-			
+			layerUI.addChild(glass);
 			layerUI.addChild(aboutScreen);
 			layerUI.addChild(border);
 			aboutScreen.alpha = 0;
@@ -159,14 +161,14 @@ package cepa.ai
 			 
 		}
 		public function closeScreen(spriteScreen:Sprite):void {			
-			trace(spriteScreen.numChildren)
+			glass.visible = false;
 			if (spriteScreen.getChildByName("bgs") != null) {
 					var idx:int = spriteScreen.getChildIndex(spriteScreen.getChildByName("bgs"));
 					spriteScreen.getChildByName("bgs").alpha = 0;
 					spriteScreen.removeChildAt(idx)
 					
-					trace("passou")
-					trace(spriteScreen.numChildren)
+					//trace("passou")
+					//trace(spriteScreen.numChildren)
 				}
 
 			Actuate.tween(spriteScreen, 0.6, { alpha:0, scaleX:0.01, scaleY:0.01 } ).onComplete(function():void {
@@ -177,19 +179,18 @@ package cepa.ai
 		private function closeScreen2(spriteScreen:Sprite):void {
 			
 				//spriteScreen.alpha = 0;
-				spriteScreen.visible = false;
 				
-			
+				spriteScreen.visible = false;
 		}		
+		
 		public function openScreen(spriteScreen:Sprite):void {
 			
-			var backgroundScreen:Sprite = new Sprite();
-			
-			backgroundScreen.graphics.beginFill(0x000000, 0.4);
-			backgroundScreen.graphics.drawRect( -this.scrollRect.width / 2, -this.scrollRect.height / 2, this.scrollRect.width, this.scrollRect.height);
-			spriteScreen.addChild(backgroundScreen);
-			spriteScreen.setChildIndex(backgroundScreen, 0);
-			backgroundScreen.name = "bgs";
+			//var backgroundScreen:Sprite = new Sprite();			
+			//backgroundScreen.graphics.beginFill(0x000000, 0.4);
+			//backgroundScreen.graphics.drawRect( -this.scrollRect.width *100, -this.scrollRect.height *100, this.scrollRect.width*100, this.scrollRect.height*100);
+			//spriteScreen.addChild(backgroundScreen);
+			//spriteScreen.setChildIndex(backgroundScreen, 0);
+			//backgroundScreen.name = "bgs";
 
 			
 			
@@ -209,7 +210,7 @@ package cepa.ai
 						
 			//REMOVER ------------------------------
 			
-			
+			glass.visible = true;
 			//addChild(glass)
 			spriteScreen.parent.setChildIndex(spriteScreen, spriteScreen.parent.numChildren - 1);			
 			//addChild(border)
@@ -238,7 +239,7 @@ package cepa.ai
 			optionButtons.y = stage.stageHeight - margin - optionButtons.height;			
 			makeButton(optionButtons.btTutorial);
 			makeButton(optionButtons.btStatistics);
-			addTooltip(optionButtons.btStatistics, "Estatísticas");
+			addTooltip(optionButtons.btStatistics, "Desempenho");
 			addTooltip(optionButtons.btTutorial, "Tutorial")
 			makeButton(optionButtons.btReset);
 			addTooltip(optionButtons.btReset, "Reset")
