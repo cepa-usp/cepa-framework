@@ -1,6 +1,6 @@
 package cepa.ai
 {
-	import cepa.utils.ToolTip;
+	import cepa.tooltip.ToolTip;
 	import com.eclecticdesignstudio.motion.Actuate;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;

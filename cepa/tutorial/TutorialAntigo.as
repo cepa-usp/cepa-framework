@@ -12,25 +12,25 @@ package cepa.tutorial
 	 * ...
 	 * @author Arthur Tofani
 	 */
-	public class Tutorial extends Sprite
+	public class TutorialAntigo extends Sprite
 	{
 		public static const STATE_NONE:int = 0;
 		public static const STATE_RUNNING:int = 1;
 		
-		private var baloes:Vector.<CaixaTextoNova> = new Vector.<CaixaTextoNova>();
+		private var baloes:Vector.<CaixaTexto> = new Vector.<CaixaTexto>();
 		private var position:int = -1;
-		private var balaoatual:CaixaTextoNova = null;
+		private var balaoatual:CaixaTexto = null;
 		private var _state:int = 0;
 		
 		
 		
-		public function Tutorial() 
+		public function TutorialAntigo() 
 		{
 			
 		}
 		
-		public function adicionarBalao(texto:String, pos:Point, ladoSeta:String, posicaoSeta:String):CaixaTextoNova {
-			var balao:CaixaTextoNova = new CaixaTextoNova(true);			
+		public function adicionarBalao(texto:String, pos:Point, ladoSeta:int, posicaoSeta:int):CaixaTexto {
+			var balao:CaixaTexto = new CaixaTexto(true);			
 			balao.setText(texto, ladoSeta, posicaoSeta);
 			balao.setPosition(pos.x, pos.y);
 			//balao.addEventListener(Event.CLOSE, closeBalao);			
