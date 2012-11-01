@@ -35,10 +35,10 @@
 		private var _data:Object = new Object();
 		private var _aiinstance:AIInstance = null;
 		
-		public function AI(stagesprite:Sprite) 
+		public function AI(stagesprite:Sprite, menuVertical:Boolean = true) 
 		{
 			
-			container = new AIContainer(stagesprite, this);
+			container = new AIContainer(stagesprite, this, menuVertical);
 			stagesprite.addEventListener(Event.UNLOAD, function(e:Event):void {
 				terminate();
 			});

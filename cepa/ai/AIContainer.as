@@ -30,7 +30,8 @@ package cepa.ai
 		private var layerUI:Sprite = new Sprite();
 		private var ai:AI;
 		private var margin:int = 12;
-		private var _optionButtons:MenuBotoes = new MenuBotoes()
+		//private var _optionButtons:MenuBotoes = new MenuBotoes();
+		private var _optionButtons:MenuBotoes2;
 		private var glass:GlassPane;			
 		private var _messageLabel:TextoExplicativo = new TextoExplicativo();
 		private var aboutScreen:Sprite;
@@ -38,9 +39,9 @@ package cepa.ai
 		private var infoScreen:Sprite;
 		
 		
-		public function AIContainer(stagesprite:Sprite, ai:AI)
+		public function AIContainer(stagesprite:Sprite, ai:AI, menuVertical:Boolean = true )
 		{	
-			
+			_optionButtons = new MenuBotoes2(menuVertical);
 			this.ai = ai;
 			//this.graphics.beginFill(0xFFFFFF);
 			//this.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
@@ -233,7 +234,7 @@ package cepa.ai
 			
 			// prepare option buttons
 			layerUI.addChild(optionButtons);
-			optionButtons.x = stage.stageWidth - margin - optionButtons.width;
+			optionButtons.x = stage.stageWidth - margin - optionButtons.BTN_WIDTH;
 			optionButtons.filters = [SHADOW_FILTER];
 			optionButtons.y = stage.stageHeight - margin - optionButtons.height;			
 			makeButton(optionButtons.btTutorial);
@@ -327,15 +328,15 @@ package cepa.ai
 			_messageLabel = value;
 		}
 		
-		public function get optionButtons():MenuBotoes 
+		public function get optionButtons():MenuBotoes2 
 		{
 			return _optionButtons;
 		}
 		
-		public function set optionButtons(value:MenuBotoes):void 
-		{
-			_optionButtons = value;
-		}
+		//public function set optionButtons(value:MenuBotoes2):void 
+		//{
+			//_optionButtons = value;
+		//}
 
 	}
 
