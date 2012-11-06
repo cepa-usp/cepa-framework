@@ -47,8 +47,9 @@ package cepa.tutorial
 			
 			stage.addChild(this);						
 			if (block) {
-				blocksprite.graphics.beginFill(0xFF8000, 0.02);
+				blocksprite.graphics.beginFill(0xFFFFFF, 0.3);
 				blocksprite.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
+				blocksprite.name = "block";
 				addChild(blocksprite)
 			}
 			position = -1;
