@@ -54,6 +54,14 @@ package cepa.ai
 			setAboutScreen(new AboutScreenUI());
 			bindMenuButtons();
 			adjustBorder();
+			border.addEventListener(MouseEvent.CLICK, onBorderClick);
+		}
+		
+		private function onBorderClick(e:MouseEvent):void 
+		{
+			if (ai.debugMode == true) {
+				ai.debugScreen.show();
+			}
 		}
 		
 		public function disableComponent(display:*):void {
