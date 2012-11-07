@@ -37,6 +37,7 @@ package cepa.ai
 		private var aboutScreen:Sprite;
 		private var border:Sprite = new Sprite();
 		private var infoScreen:Sprite;
+		private var messageScreen:MessageScreen;
 		
 		
 		public function AIContainer(stagesprite:Sprite, ai:AI, menuVertical:Boolean = true )
@@ -182,7 +183,40 @@ package cepa.ai
 				//spriteScreen.alpha = 0;
 				
 				spriteScreen.visible = false;
-		}		
+		}	
+		
+		private function createMessageScreen():void {
+			messageScreen = new MessageScreen("", MessageScreen.TYPE_OK);
+			messageScreen.btOk.addEventListener(MouseEvent.CLICK, onMsgOk);
+			messageScreen.btCancel.addEventListener(MouseEvent.CLICK, onMsgCancel);
+			layerUI.addChild(messageScreen.screen);
+			messageScreen.screen.x = stage.stageWidth / 2;
+			messageScreen.screen.y = stage.stageHeight / 2;
+			messageScreen.screen.alpha = 0;
+			messageScreen.screen.visible = false;
+			layerUI.addChild(border);
+			closeScreen(messageScreen.screen);			
+		}
+		
+		private var messageBoxCallbackFunction:Function = null;
+		public function messageBox(text:String, callback:Function, type:int = MessageScreen.TYPE_OK):void {
+			messageScreen.text = text;
+			messageBoxCallbackFunction = callback;
+			messageScreen.type = type;
+			openScreen(messageScreen.screen);
+		}
+		
+		private function onMsgCancel(e:MouseEvent):void 
+		{
+			closeScreen(messageScreen.screen);
+			if(messageBoxCallbackFunction!=null) messageBoxCallbackFunction.call(null, MessageScreen.RESPONSE_CANCEL);
+		}
+		
+		private function onMsgOk(e:MouseEvent):void 
+		{
+			closeScreen(messageScreen.screen);
+			if(messageBoxCallbackFunction!=null) messageBoxCallbackFunction.call(null, MessageScreen.RESPONSE_OK);
+		}
 		
 		public function openScreen(spriteScreen:Sprite):void {
 			
@@ -224,6 +258,7 @@ package cepa.ai
 		
 		public function createUI():void {
 			addChild(layerUI);
+			
 			// prepare message label
 			//messageLabel.scrollRect = 
 			messageLabel.width = stage.stageWidth;
@@ -249,7 +284,7 @@ package cepa.ai
 			
 			makeButton(optionButtons.btCreditos);
 			addTooltip(optionButtons.btCreditos, "Créditos");
-			
+			createMessageScreen();
 		}
 		
 		private function addTooltip(spr:Sprite, tx:String) {
