@@ -23,16 +23,16 @@ package cepa.tutorial
 		private var position:int = -1;
 		private var balaoatual:CaixaTextoNova = null;
 		private var _state:int = 0;
+		private var roundCorner:Boolean;
 		
 		
-		
-		public function Tutorial() 
+		public function Tutorial(roundCorner:Boolean = false) 
 		{
-			
+			this.roundCorner = roundCorner;
 		}
 		
 		public function adicionarBalao(texto:String, pos:Point, ladoSeta:String, posicaoSeta:String):CaixaTextoNova {
-			var balao:CaixaTextoNova = new CaixaTextoNova(true);			
+			var balao:CaixaTextoNova = new CaixaTextoNova(roundCorner);			
 			balao.setText(texto, ladoSeta, posicaoSeta);
 			balao.setPosition(pos.x, pos.y);
 			//balao.addEventListener(Event.CLOSE, closeBalao);			
@@ -47,7 +47,7 @@ package cepa.tutorial
 			
 			stage.addChild(this);						
 			if (block) {
-				blocksprite.graphics.beginFill(0xFFFFFF, 0.3);
+				blocksprite.graphics.beginFill(0xFFFFFF, 0.2);
 				blocksprite.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 				blocksprite.name = "block";
 				addChild(blocksprite)
