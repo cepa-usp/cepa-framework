@@ -280,7 +280,7 @@ package cepa.ai
 			layerUI.addChild(optionButtons);
 			optionButtons.x = stage.stageWidth - margin - optionButtons.BTN_WIDTH;
 			optionButtons.filters = [SHADOW_FILTER];
-			optionButtons.y = stage.stageHeight - margin - optionButtons.height;			
+			optionButtons.y = stage.stageHeight - margin;			
 			makeButton(optionButtons.btTutorial);
 			makeButton(optionButtons.btStatistics);
 			addTooltip(optionButtons.btStatistics, "Desempenho");
